@@ -12,6 +12,15 @@ function listOutOfStockCount() {
     .groupBy("out_of_stock");
 }
 
+function listPriceSummary() {
+  return knex("products")
+    .select("supplier_id")
+    .min("product_price")
+    .max("product_price")
+    .avg("product_price")
+    .groupBy("supplier_id");
+}
+
 function read(product_id) {
   return knex("products").select("*").where({ product_id }).first();
 }
@@ -20,4 +29,5 @@ module.exports = {
   read,
   list,
   listOutOfStockCount,
+  listPriceSummary,
 };
